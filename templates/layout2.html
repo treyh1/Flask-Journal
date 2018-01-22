@@ -1,0 +1,62 @@
+<!doctype html>
+<title>Flask Journal</title>
+
+<!-- Link out for Jquery, which is a dependency for datatables -->
+
+<script
+  src="https://code.jquery.com/jquery-3.2.1.js"
+  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+  crossorigin="anonymous"></script>
+
+<!-- Link out for datatables -->
+
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.4.2/css/buttons.dataTables.min.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.4.2/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/buttons/1.4.2/js/buttons.print.min.js"></script>
+
+<!-- Bootstrap -->
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styledform.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='pinboardstyle_main.css') }}">
+
+<!-- Script to initialize datatables -->
+
+<script language="javascript">
+
+$(document).ready( function () {
+    $('#table_id').DataTable( {
+          order: [[10, "desc"]],
+          dom: 'Bfrtip' ,
+          buttons: [
+              'pageLength',
+              'print'
+          ]
+    }  );
+} );
+
+</script>
+
+
+<div class=page>
+  <h1>Flask Journal</h1>
+  <div class=metanav>
+    <a class=navlink href="{{ url_for('session_count') }}">home</a>
+    <a class=navlink href="{{ url_for('new_entry') }}">new entry</a>
+    <a class=navlink href="{{ url_for('random') }}">random</a>
+    <a class=navlink href="{{ url_for('list') }}">list</a>
+    <a class=navlink href="{{ url_for('get_beaches') }}">atlas</a>
+  {% if not session.logged_in %}
+    <a class=navlink href="{{ url_for('login') }}">log in</a>
+  {% else %}
+    <a class=navlink href="{{ url_for('logout') }}">log out</a>
+  {% endif %}
+  </div>
+  {% for message in get_flashed_messages() %}
+    <div class=flash>{{ message }}</div>
+  {% endfor %}
+  {% block body %}{% endblock %}
+</div>

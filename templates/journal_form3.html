@@ -1,0 +1,80 @@
+{% extends "layout2.html" %}
+{% block body %}
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3"></div>
+
+            <div class="col-md-6">
+              <form action = "{{ url_for('add_entry') }}" method = "POST">
+                 <h3>Add Journal Entry</h3>
+
+                 <!--
+                 <label>Beach</label>
+                 <input type = "text" class="form-control" name = "beach" /></br>
+                 -->
+
+                 <label>Beach Name</label>
+                 <select class="form-control" name="beach_name">
+                    {% for x in beach_names %}
+                        <option value= '{{ x }}'>{{ x }}</option>
+                    {% endfor %}
+                 </select>
+                 
+                 <label>Board</label>
+                 <select class="form-control" name="board">
+                     <option value="unrecorded">Unrecorded</option>
+                     <option value="surfmat">Surf Mat</option>
+                     <option value="nolte">9-3 Tim Nolte</option>
+                     <option value="brucejones">6-10 Bruce Jones Retro</option>
+                     <option value="new73">New 7-3</option>
+                     <option value="dharma2">5-10 Dharma 2.0</option>
+                     <option value="austrialia96">9-6 Australia</option>
+                     <option value="other">Other</option>
+                 </select></br>
+                 
+                 <label>Time In</label>
+                 <input type="datetime-local" class="form-control" name="time_in"><br />
+                 
+                 <label>Time Out</label>
+                 <input type="datetime-local" class="form-control" name="time_out"><br />
+
+                 <label>Swell Size</label>
+                 <select class="form-control" name="swell">
+                     <option value="ankle">Ankle High</option>
+                     <option value="knee">Knee High</option>
+                     <option value="thigh">Thigh High</option>
+                     <option value="waist">Waist High</option>
+                     <option value="chest">Chest High</option>
+                     <option value="head">Head High</option>
+                     <option value="overhead">Overhead</option>
+                 </select></br>
+
+                 <label>Wind Speed</label>
+                 <select class="form-control" name="wind">
+                     <option value="minimal">Minimal</option>
+                     <option value="less5">Less Than 5 Knots</option>
+                     <option value="5to10">5 to 10 Knots</option>
+                     <option value="10to15">10 to 15 Knots</option>
+                     <option value="15plus">15+ Knots</option>
+                 </select></br>
+
+                 <label>Session Score</label>
+                 <select class="form-control" name="score">
+                     <option value="1">1</option>
+                     <option value="2">2</option>
+                     <option value="3">3</option>
+                 </select></br>
+
+                 <label>Session Notes</label>
+                 <textarea class="form-control" name = "notes" ></textarea><br>
+
+                 <input id="form_button" type = "submit" class="form-control" value = "Submit" /><br>
+              </form>
+            </div>
+
+            <div class="col-md-3"></div>
+        </div>
+    </div>
+</body>
+{% endblock %}

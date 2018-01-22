@@ -1,0 +1,35 @@
+{% extends "layout2.html" %}
+{% block body %}
+   <body>
+   
+      <table id="table_id" class="display" border = 1>
+         <thead>
+            <td>Name</td>
+            <td>Length</td>
+            <td>Volume</td>
+            <td>Shaper</td>
+            <td>Description</td>
+         </thead>
+         
+         <tbody>
+
+<!--Each of these rows corresponds to one of the columns above, but the order does not correspond to the order of the columns in postgres. sort of a mystery to me. figured it out by trial and error.-->
+
+         {% for row in rows %}
+
+            <tr>
+               <td>{{row[5]}}</td>
+               <td>{{row[2]}}</td>
+               <td>{{row[3]}}</td>
+               <td>{{row[4]}}</td>
+               <td>{{row[6]}}</td>
+            </tr>
+
+         {% endfor %}
+
+         </tbody>
+
+      </table>
+      
+   </body>
+{% endblock %}

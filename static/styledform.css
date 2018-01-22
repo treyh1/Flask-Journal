@@ -1,0 +1,32 @@
+form {
+    border: thin dotted #7e7e7e;
+    padding: 20px;
+}
+
+div.tableRow {
+    display: table-row;
+}
+
+div.tableRow p {
+    display: table-cell;
+    vertical-align: top;
+    padding: 3px;
+}
+
+div.tableRow p:first-child {
+    text-align: right;
+}
+
+p.heading {
+    font-weight: bold;
+}
+
+select {
+	text-align: center;
+}
+
+#form_button {
+	color: #ffffff;
+	background-color: #016fb9;
+	font-weight: bold;
+}

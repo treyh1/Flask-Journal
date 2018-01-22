@@ -1,0 +1,35 @@
+body
+{
+  color:#333;
+  margin-left:20px;
+  font-size:13px;
+  font-family: helvetica, sans-serif;
+  word-wrap:break-word;
+  text-align:center;
+}
+
+.metanav
+{
+    display:inline;
+    color:#11a;
+    padding: 7px 10px 7px 10px;
+}
+
+.navlink
+{
+    padding: 0px 10px;
+    word-wrap: normal;
+    display: inline-block;
+}
+
+.form-control 
+{ 
+    text-align: center; 
+}
+
+input 
+{ 
+    text-align: center; 
+}
+
+

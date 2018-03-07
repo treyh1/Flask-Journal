@@ -27,8 +27,17 @@
 
 <script language="javascript">
 
+
 $(document).ready( function () {
-    $('#table_id').DataTable( {
+    $('#boards').DataTable( {
+          order: [[5, "desc"]],
+          dom: 'Bfrtip' ,
+          buttons: [
+              'pageLength',
+              'print'
+          ]
+    }  );
+    $('#entries').DataTable( {
           order: [[10, "desc"]],
           dom: 'Bfrtip' ,
           buttons: [
@@ -49,6 +58,7 @@ $(document).ready( function () {
     <a class=navlink href="{{ url_for('random') }}">random</a>
     <a class=navlink href="{{ url_for('list') }}">list</a>
     <a class=navlink href="{{ url_for('get_beaches') }}">atlas</a>
+    <a class=navlink href="{{ url_for('list_boards') }}">boards</a>
   {% if not session.logged_in %}
     <a class=navlink href="{{ url_for('login') }}">log in</a>
   {% else %}

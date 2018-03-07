@@ -2,27 +2,29 @@
 {% block body %}
    <body>
    
-      <table id="table_id" class="display" border = 1>
+      <table id="boards" class="display" border = 1>
          <thead>
             <td>Name</td>
             <td>Length</td>
             <td>Volume</td>
             <td>Shaper</td>
             <td>Description</td>
+            <td>Session Count</td>
          </thead>
          
          <tbody>
 
-<!--Each of these rows corresponds to one of the columns above, but the order does not correspond to the order of the columns in postgres. sort of a mystery to me. figured it out by trial and error.-->
+<!--The references below correspond to different items in the "boards_for_template" query that is passed into the template.-->
 
          {% for row in rows %}
 
             <tr>
-               <td>{{row[5]}}</td>
-               <td>{{row[2]}}</td>
-               <td>{{row[3]}}</td>
-               <td>{{row[4]}}</td>
-               <td>{{row[6]}}</td>
+               <td>{{ row.Board.display_name }}</td>
+               <td>{{ row.Board.length }}</td>
+               <td>{{ row.Board.volume }}</td>
+               <td>{{ row.Board.shaper }}</td>
+               <td>{{ row.Board.description }}</td>
+               <td>{{ row.entry_count }}</td>
             </tr>
 
          {% endfor %}

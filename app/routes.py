@@ -3,6 +3,7 @@ from datetime import datetime
 from flask_googlemaps import GoogleMaps
 from flask_googlemaps import Map
 from flask_sqlalchemy import SQLAlchemy, inspect
+from sqlalchemy import func
 import os
 import psycopg2 as psy
 import urllib.parse
@@ -19,34 +20,18 @@ conn = psy.connect(
   port=url.port
 )
 
-app = Flask(__name__, template_folder="templates")
-app.config.from_object(__name__)
-
-GoogleMaps(app, key="AIzaSyBqD70ZYt3164PpO6e89gQGzt9vGTOzbTw")
-
-# this configuration code is where I keep the username and password needed to log in to the app.
-
-app.config.update(dict(
-   SECRET_KEY='dev123',
-   USERNAME='gdos',
-   PASSWORD='pumpk1npr3sch00l!'
-))
-
-# I need this configuration code for SQLAlchemy to be able to connect to the database.
-
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://hklqsmvwmmlire:38c4eead7b759074bef4b6b6b56650ccdabb7fb7aefdd1ae4fde9d361a3886e2@ec2-107-20-250-195.compute-1.amazonaws.com:5432/dfbkcsjmohd6q2'
-
-#This is a setting I need to make to keep the app from barfing when I connect to the DB using SQL_alchemy
-
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-db = SQLAlchemy(app)
+from models import Board, Entry
 
 # I use this function to unpack a list of tuples returned by the sql_alchemy query attribute, and convert each into a dictionary.
 
 def object_as_dict(obj):
   return {c.key: getattr(obj, c.key)
     for c in inspect(obj).mapper.column_attrs}
+
+# Use this to convert a list of dictionaries into a list of tuples, stripping out the keys and leaving only the values to be fed into Jinja2.
+
+def get_values_as_tuple(dict_list, keys):
+  return [tuple(d[k] for k in keys) for d in dict_list]
 
 # this is the code that shows the login page.
 
@@ -231,22 +216,6 @@ def get_beaches():
     return render_template("atlas2.html", beach_map = beach_map, rows = rows)
 
 @app.route('/hide', methods=['POST'])
-# def hide_test():
-#    if request.method == 'POST':
-#       try:
-
-# # pull the following data out of the form fields.
-
-#          entry_ids = request.form.get('entry_to_hide')
-
-#          return render_template("result2.html", msg = entry_ids)
-
-#       except: 
-        
-#          msg = "couldn't get the form field"
-
-#          return render_template("result2.html",msg = msg)
-
 def hide_entry():
 
    if request.method == 'POST':
@@ -282,55 +251,19 @@ def hide_entry():
 
          return render_template("result2.html",msg = msg)
 
-# Here I am defining the class that I am going to use in the boards route below with SQLAlchemy.
-
-class Board(db.Model):
-
-    __tablename__ = 'boards'
-
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(256), unique=True, nullable=False)
-    length = db.Column(db.Integer)
-    volume = db.Column(db.Integer)
-    shaper = db.Column(db.String(256))
-    display_name = db.Column(db.String(256))
-    description = db.Column(db.String(256))
-
-    def __init__(id, name, length, volume, shaper, display_name, description):
-        self.id = id
-        self.name = name
-        self.length = length
-        self.volume = volume
-        self.shaper = shaper
-        self.display_name = display_name
-        self.description = description
-
-
 @app.route('/boards')
 def list_boards():
    if not session.get('logged_in'):
       abort(401)
 
-# The result of the query attribute is a list where each row in the database is a tuple. 
+# Query the DB to get the list of boards and also a count of entries per board.
 
-   tuple_boards = Board.query.all()
+   boards_for_template = (
+      db.session.query(Board, func.count(Entry.id).label('entry_count'))
+      .join(Entry, Board.name == Entry.board)
+      .group_by(Board)
+)
 
-# Define an empty list to hold the boards after they have been converted into dictionaries.
+# Pass the results into the template
 
-   dict_boards = []
-
-# Convert all the tuple boards into dictionary boards, and stick them into the empty list provided for this.
-
-   for board in tuple_boards:
-       dict_boards.append(object_as_dict(board)) 
-
-   return render_template("boards.html",rows = dict_boards)
-
-if __name__ == '__main__':
-   app.run(debug = True, use_reloader=True)
-
-# I need this code to start the server on Heroku. Moved it to the bottom per Eric's suggestion. 
-
-if __name__ == '__main__':
-    # Bind to PORT if defined, otherwise default to 5000.
-    app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
+   return render_template("boards.html",rows = boards_for_template)

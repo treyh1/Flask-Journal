@@ -1,1 +1,1 @@
-web: gunicorn surfjournal:app
+web: gunicorn app:app

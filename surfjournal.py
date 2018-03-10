@@ -1,1 +1,0 @@
-from surfjournal import app, db

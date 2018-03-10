@@ -1,5 +1,6 @@
-from flask import Flask 
+from flask import Flask
+from config import Config 
 
 app = Flask(__name__)
 
-from app import routes
+from app import models, routes

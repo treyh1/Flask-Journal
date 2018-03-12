@@ -1,1 +1,0 @@
-from Flask-Journal import app, db

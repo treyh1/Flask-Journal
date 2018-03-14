@@ -1,1 +1,1 @@
-from flaskjournal import flaskjournal, db
+from app import app, db

@@ -1,4 +1,5 @@
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash
+from app import app
 from datetime import datetime
 from flask_googlemaps import GoogleMaps
 from flask_googlemaps import Map

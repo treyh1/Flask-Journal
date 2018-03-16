@@ -21,7 +21,7 @@ conn = psy.connect(
   port=url.port
 )
 
-from models import Board, Entry
+from .models import Board, Entry
 
 # I use this function to unpack a list of tuples returned by the sql_alchemy query attribute, and convert each into a dictionary.
 

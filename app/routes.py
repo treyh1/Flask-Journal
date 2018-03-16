@@ -21,7 +21,7 @@ conn = psy.connect(
   port=url.port
 )
 
-from models import Board, Entry
+from .models import Board, Entry
 
 # I use this function to unpack a list of tuples returned by the sql_alchemy query attribute, and convert each into a dictionary.
 
@@ -48,7 +48,7 @@ def login():
             session['logged_in'] = True
             flash('You were logged in')
             return redirect(url_for('session_count'))
-    return render_template('login.html', error=error)
+    return render_template('/templates/login.html', error=error)
 
 @app.route('/logout')
 def logout():
@@ -268,12 +268,3 @@ def list_boards():
 # Pass the results into the template
 
    return render_template("boards.html",rows = boards_for_template)
-
-if __name__ == '__main__':
-   app.run(debug = True, use_reloader=True)
-
-# I need this code to start the server on Heroku. Moved it to the bottom per Eric's suggestion. 
-
-if __name__ == '__main__':
-    # Bind to PORT if defined, otherwise default to 5000.
-    app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))

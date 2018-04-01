@@ -50,7 +50,7 @@ def login():
             session['logged_in'] = True
             flash('You were logged in')
             return redirect(url_for('session_count'))
-    return render_template('/templates/login.html', error=error)
+    return render_template('login.html', error=error)
 
 @app.route('/logout')
 def logout():

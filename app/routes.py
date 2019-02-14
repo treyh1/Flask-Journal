@@ -297,7 +297,7 @@ def list_boards():
 
    for queried_row in boards_queried_dict_list:
         for last_used_row in boards_last_used_dict_list:
-            if queried_row['name'] == last_used_row['board_name']:
+            if queried_row['board'] == last_used_row['board_name']:
                 queried_row.update(last_used_row)
                 boards_for_template_list.append(queried_row)
 

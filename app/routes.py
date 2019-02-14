@@ -262,9 +262,9 @@ def list_boards():
 # Query the DB to get the list of boards and also a count of entries per board.
 
    boards_queried = (
-      db.session.query(Board, func.count(Entry.id).label('entry_count'))
+      db.session.query(Board.id, Board.name, Board.length, Board.volume, Board.shaper, Board.display_name, Board.description, func.count(Entry.id).label('entry_count'))
       .join(Entry, Board.name == Entry.board)
-      .group_by(Board)
+      .group_by(Board.id, Board.name, Board.length, Board.volume, Board.shaper, Board.display_name, Board.description)
 )
 
 # This is last-surfed dates for the other table at the bottom of the page. 
@@ -297,7 +297,7 @@ def list_boards():
 
    for queried_row in boards_queried_dict_list:
         for last_used_row in boards_last_used_dict_list:
-            if queried_row['board'] == last_used_row['board_name']:
+            if queried_row['name'] == last_used_row['board_name']:
                 queried_row.update(last_used_row)
                 boards_for_template_list.append(queried_row)
 

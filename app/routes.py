@@ -261,12 +261,46 @@ def list_boards():
 
 # Query the DB to get the list of boards and also a count of entries per board.
 
-   boards_for_template = (
+   boards_queried = (
       db.session.query(Board, func.count(Entry.id).label('entry_count'))
       .join(Entry, Board.name == Entry.board)
       .group_by(Board)
 )
 
+# This is last-surfed dates for the other table at the bottom of the page. 
+
+   boards_last_used = db.session.query((func.max(Entry.time_out)).label('time_out'), Entry.board).group_by(Entry.board)
+
+   boards_last_used_dict_list = []
+
+   boards_queried_dict_list = []
+
+   boards_for_template_list = []
+
+   # The results of the SQLAlchemy query above are returned as keyed-tuples. Need to begin by converting each of these to a dictionary. 
+
+   for row in boards_queried.all():
+        queried_row = row._asdict()
+        boards_queried_dict_list.append(queried_row)
+
+
+   for row in boards_last_used.all():
+        last_used_row = row._asdict()
+        boards_last_used_dict_list.append(last_used_row)
+  
+   # Now that I have a dictionary for each value, strip the HH:MM out of the "time_out" label. 
+
+   for last_used_row in boards_last_used_dict_list:
+        last_used_row['time_out'] = (last_used_row['time_out'].date())
+
+   # Merge the boards_last_used and the boards_queried based on whether board_name and name match. 
+
+   for queried_row in boards_queried_dict_list:
+        for last_used_row in boards_last_used_dict_list:
+            if queried_row['name'] == last_used_row['board_name']:
+                queried_row.update(last_used_row)
+                boards_for_template_list.append(queried_row)
+
 # Pass the results into the template
 
-   return render_template("boards.html",rows = boards_for_template)
+   return render_template("boards.html",rows = boards_for_template_list)

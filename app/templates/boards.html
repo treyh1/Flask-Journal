@@ -10,6 +10,7 @@
             <td>Shaper</td>
             <td>Description</td>
             <td>Session Count</td>
+            <td>Last Used</td>
          </thead>
          
          <tbody>
@@ -19,12 +20,13 @@
          {% for row in rows %}
 
             <tr>
-               <td>{{ row.Board.display_name }}</td>
-               <td>{{ row.Board.length }}</td>
-               <td>{{ row.Board.volume }}</td>
-               <td>{{ row.Board.shaper }}</td>
-               <td>{{ row.Board.description }}</td>
+               <td>{{ row.display_name }}</td>
+               <td>{{ row.length }}</td>
+               <td>{{ row.volume }}</td>
+               <td>{{ row.shaper }}</td>
+               <td>{{ row.description }}</td>
                <td>{{ row.entry_count }}</td>
+               <td>{{ row.time_out }}
             </tr>
 
          {% endfor %}

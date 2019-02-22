@@ -11,6 +11,7 @@
             <td>Description</td>
             <td>Session Count</td>
             <td>Last Used</td>
+            <td>Average Score</td>
          </thead>
          
          <tbody>
@@ -26,7 +27,8 @@
                <td>{{ row.shaper }}</td>
                <td>{{ row.description }}</td>
                <td>{{ row.entry_count }}</td>
-               <td>{{ row.time_out }}
+               <td>{{ row.time_out }}</td>
+               <td>{{ row.avg_score }}</td>
             </tr>
 
          {% endfor %}

@@ -262,7 +262,7 @@ def list_boards():
 # Query the DB to get the list of boards and also a count of entries per board.
 
    boards_queried = (
-      db.session.query(Board.id, Board.name, Board.length, Board.volume, Board.shaper, Board.display_name, Board.description, func.count(Entry.id).label('entry_count'), func.avg(Entry.score).label('avg_score'))
+      db.session.query(Board.id, Board.name, Board.length, Board.volume, Board.shaper, Board.display_name, Board.description, func.count(Entry.id).label('entry_count'), func.round(avg(Entry.score, 1)).label('avg_score'))
       .join(Entry, Board.name == Entry.board)
       .group_by(Board.id, Board.name, Board.length, Board.volume, Board.shaper, Board.display_name, Board.description)
 )

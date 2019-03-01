@@ -28,7 +28,7 @@
                <td>{{ row.description }}</td>
                <td>{{ row.entry_count }}</td>
                <td>{{ row.time_out }}</td>
-               <td>{{ row.avg_score }}</td>
+               <td>{{ row.avg_score | round (1) }}</td>
             </tr>
 
          {% endfor %}

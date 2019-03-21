@@ -214,7 +214,8 @@ def get_beaches():
           lat=33.1103,
           lng=-117.2326,
           markers = markers,
-          zoom = 10
+          zoom = 10,
+          style = "height:450px;width:600px;margin:0;"
       )
     return render_template("atlas2.html", beach_map = beach_map, rows = rows)
 

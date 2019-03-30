@@ -324,6 +324,9 @@ def add_beach():
 
 # pull the following data out of the form fields on add_beach_form.html
 
+   if not session.get('logged_in'):
+      abort(401)
+   
    form_b_name = request.form['beach_name']
    form_lat = request.form['latitude']
    form_long = request.form['longitude']

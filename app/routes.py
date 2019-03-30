@@ -310,14 +310,14 @@ def list_boards():
 @app.route('/beachform')
 def new_entry():
 
-    # Check to make sure that the user is logged in. 
+   # Check to make sure that the user is logged in. 
 
-    if not session.get('logged_in'):
-       abort(401)
+   if not session.get('logged_in'):
+      abort(401)
 
-    # Show the add_beach form
+   # Show the add_beach form
 
-    return render_template('add_beach_form.html')
+   return render_template('add_beach_form.html')
 
 @app.route('/add_beach',methods = ['POST'])
 def add_beach():

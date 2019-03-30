@@ -1,0 +1,32 @@
+{% extends "layout2.html" %}
+{% block body %}
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3"></div>
+
+            <div class="col-md-6">
+              <form action = "{{ url_for('add_beach') }}" method = "POST">
+                 <h3>Add Journal Entry</h3>
+
+                 <label>Beach Name</label>
+                 <textarea class="form-control" name = "beach_name" ></textarea><br>
+
+                 <label>Latitude</label>
+                 <input type = "number" class="form-control" name = "latitude" step="0.000001" min="-90" max="90"><br>
+
+                 <label>Longitude</label>
+                 <input type = "number" class="form-control" name = "longitude" step="0.000001" min="-180" max="180"><br>
+                 
+                 <label>Beach Description</label>
+                 <textarea class="form-control" name = "beach_description" ></textarea><br>
+
+                 <input id="form_button" type = "submit" class="form-control" value = "Submit" /><br>
+              </form>
+            </div>
+
+            <div class="col-md-3"></div>
+        </div>
+    </div>
+</body>
+{% endblock %}

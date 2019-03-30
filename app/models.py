@@ -51,3 +51,20 @@ class Entry(db.Model):
         self.time_out = time_out
         self.beach_name = beach_name
         self.deleted = deleted
+
+class Beach(db.Model):
+
+    __tablename__ = 'beaches'
+
+    id = db.Column(db.Integer, primary_key=True)
+    beach_name = db.Column(db.String(256))
+    lat = db.Column(db.Decimal)
+    long = db.Column(db.Decimal)
+    beach_description = db.Column(db.String(256))
+
+    def __init__(id, beach_name, lat, long, beach_description):
+        self.id = id
+        self.beach_name = beach_name
+        self.lat = lat
+        self.long = long
+        self.beach_description = beach_description

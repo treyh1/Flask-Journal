@@ -58,8 +58,8 @@ class Beach(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     beach_name = db.Column(db.String(256))
-    lat = db.Column(db.Decimal)
-    long = db.Column(db.Decimal)
+    lat = db.Column(db.Numeric)
+    long = db.Column(db.Numeric)
     beach_description = db.Column(db.String(256))
 
     def __init__(id, beach_name, lat, long, beach_description):

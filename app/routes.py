@@ -308,7 +308,7 @@ def list_boards():
    return render_template("boards.html",rows = boards_for_template_list)
 
 @app.route('/beachform')
-def new_entry():
+def render_beach_form():
 
    # Check to make sure that the user is logged in. 
 

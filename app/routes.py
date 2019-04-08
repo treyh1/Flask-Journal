@@ -327,25 +327,25 @@ def add_beach():
    if request.method == 'POST':
       try:
    
-         form_b_name = request.form['beach_name']
-         form_lat = request.form['latitude']
-         form_long = request.form['longitude']
-         form_b_desc = request.form['beach_description']
+        form_b_name = request.form['beach_name']
+        form_lat = request.form['latitude']
+        form_long = request.form['longitude']
+        form_b_desc = request.form['beach_description']
 
-      # Add the record to the db.
+        # Add the record to the db.
 
-         new_beach = (beach_name = form_b_name, lat = form_lat, long = form_long, beach_description = form_b_desc)
-         db.session.add(Beach.new_beach)
-         db.session.commit()
+        new_beach = (beach_name = form_b_name, lat = form_lat, long = form_long, beach_description = form_b_desc)
+        db.session.add(Beach.new_beach)
+        db.session.commit()
 
-      # take the message and show it in the confirmation dialog.
+        # take the message and show it in the confirmation dialog.
 
-         return render_template("result2.html",msg = msg)
+        return render_template("result2.html",msg = msg)
 
       except:
 
-         msg = "Failed to add the beach."
+        msg = "Failed to add the beach."
 
-         # take the message and show it in the confirmation dialog.
+        # take the message and show it in the confirmation dialog.
 
-         return render_template("result2.html",msg = msg)
+        return render_template("result2.html",msg = msg)

@@ -341,3 +341,11 @@ def add_beach():
       # take the message and show it in the confirmation dialog.
 
          return render_template("result2.html",msg = msg)
+
+      except:
+
+         msg = "Failed to add the beach."
+
+         # take the message and show it in the confirmation dialog.
+
+         return render_template("result2.html",msg = msg)

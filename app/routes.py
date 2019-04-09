@@ -334,8 +334,8 @@ def add_beach():
 
         # Add the record to the db.
 
-        new_beach = (beach_name = form_b_name, lat = form_lat, long = form_long, beach_description = form_b_desc)
-        db.session.add(Beach.new_beach)
+        new_beach = Beach(beach_name = form_b_name, lat = form_lat, long = form_long, beach_description = form_b_desc)
+        db.session.add(new_beach)
         db.session.commit()
 
         # take the message and show it in the confirmation dialog.

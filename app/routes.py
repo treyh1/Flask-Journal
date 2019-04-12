@@ -327,14 +327,14 @@ def add_beach():
    if request.method == 'POST':
       try:
    
-        form_b_name = request.form['beach_name']
-        form_lat = request.form['latitude']
-        form_long = request.form['longitude']
-        form_b_desc = request.form['beach_description']
+        beach_name = request.form['beach_name']
+        lat = request.form['latitude']
+        long = request.form['longitude']
+        beach_description = request.form['beach_description']
 
         # Add the record to the db.
 
-        new_beach = Beach(beach_name = form_b_name, lat = form_lat, long = form_long, beach_description = form_b_desc)
+        new_beach = Beach(beach_name, lat, long, beach_description)
         db.session.add(new_beach)
         db.session.commit()
 

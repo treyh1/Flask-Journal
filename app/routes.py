@@ -23,7 +23,7 @@ conn = psy.connect(
 
 GoogleMaps(app, key="AIzaSyBqD70ZYt3164PpO6e89gQGzt9vGTOzbTw")
 
-from .models import Board, Entry
+from .models import Board, Entry, Beach
 
 # I use this function to unpack a list of tuples returned by the sql_alchemy query attribute, and convert each into a dictionary.
 

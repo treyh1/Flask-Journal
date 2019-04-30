@@ -12,8 +12,7 @@ class Board(db.Model):
     display_name = db.Column(db.String(256))
     description = db.Column(db.String(256))
 
-    def __init__(id, name, length, volume, shaper, display_name, description):
-        self.id = id
+    def __init__(self, name, length, volume, shaper, display_name, description):
         self.name = name
         self.length = length
         self.volume = volume
@@ -38,8 +37,7 @@ class Entry(db.Model):
     beach_name = db.Column(db.String(256), nullable=True)
     deleted = db.Column(db.Boolean, default=False, nullable=False)
 
-    def __init__(id, beach, board, swell, wind, score, notes, duration, time_in, time_out, beach_name, deleted):
-        self.id = id
+    def __init__(self, beach, board, swell, wind, score, notes, duration, time_in, time_out, beach_name, deleted):
         self.beach = beach
         self.board = board
         self.swell = swell
@@ -62,8 +60,7 @@ class Beach(db.Model):
     long = db.Column(db.Numeric)
     beach_description = db.Column(db.String(256))
 
-    def __init__(self, id, beach_name, lat, long, beach_description):
-        self.id = id
+    def __init__(self, beach_name, lat, long, beach_description):
         self.beach_name = beach_name
         self.lat = lat
         self.long = long

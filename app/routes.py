@@ -327,16 +327,16 @@ def add_beach():
    if request.method == 'POST':
       try:
    
-# Create an instance of the Beach class called "new_beach"
+# Grab the form values and assign to variables to be used when adding the new beach.
 
-        new_beach = new_beach.Beach()
+        beach_name = request.form['beach_name']
+        lat = request.form['latitude']
+        long = request.form['longitude']
+        beach_description = request.form['beach_description']
 
-# Populate new_beach with all of the values from the form.
+        # Create an instance of the Beach class called "new_beach". Populate it with the form values from above.
 
-        new_beach.beach_name = request.form['beach_name']
-        new_beach.lat = request.form['latitude']
-        new_beach.long = request.form['longitude']
-        new_beach.beach_description = request.form['beach_description']
+        new_beach = Beach(beach_name, lat, long, beach_description)
 
         # Add the record to the db.
 

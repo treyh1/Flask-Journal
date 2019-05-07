@@ -5,6 +5,7 @@ from flask_googlemaps import GoogleMaps
 from flask_googlemaps import Map
 from flask_sqlalchemy import SQLAlchemy, inspect
 from sqlalchemy import func
+from sqlalchemy.exc import SQLAlchemyError
 import os
 import psycopg2 as psy
 import urllib.parse
@@ -347,9 +348,7 @@ def add_beach():
 
         return render_template("result2.html",msg = msg)
 
-      except:
-
-        msg = "Failed to add the beach."
+      except SQLAlchemyError as msg:
 
         # take the message and show it in the confirmation dialog.
 

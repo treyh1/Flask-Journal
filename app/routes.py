@@ -344,6 +344,8 @@ def add_beach():
         db.session.add(new_beach)
         db.session.commit()
 
+        msg = "Beach successfully added."
+
         # take the message and show it in the confirmation dialog.
 
         return render_template("result2.html",msg = msg)

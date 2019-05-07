@@ -348,7 +348,9 @@ def add_beach():
 
         return render_template("result2.html",msg = msg)
 
-      except SQLAlchemyError as msg:
+      except SQLAlchemyError as e:
+
+        msg = str(e)
 
         # take the message and show it in the confirmation dialog.
 

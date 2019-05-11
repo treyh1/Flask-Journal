@@ -1,4 +1,9 @@
 {% extends "layout2.html" %}
+
+{% block head %}
+    {{clickmap.js}}
+{% endblock %}
+
 {% block body %}
 <body>
     <div class="container">
@@ -20,6 +25,8 @@
                  
                  <label>Beach Description</label>
                  <textarea class="form-control" name = "beach_description" ></textarea><br>
+
+                 {{clickmap.html}}
 
                  <input id="form_button" type = "submit" class="form-control" value = "Submit"/><br>
               </form>

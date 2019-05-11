@@ -334,6 +334,12 @@ def render_beach_form():
 
    return render_template("add_beach_form.html", clickmap = clickmap)
 
+@app.route('/clickpost',methods = ['POST'])
+def save_coordinates
+   session['lat'] = request.form['lat']
+   session['long'] = request.form['long']
+   return redirect(url_for('add_beach'))
+
 @app.route('/add_beach',methods = ['POST'])
 def add_beach():
 
@@ -345,8 +351,8 @@ def add_beach():
 # Grab the form values and assign to variables to be used when adding the new beach.
 
         beach_name = request.form['beach_name']
-        lat = request.form['latitude']
-        long = request.form['longitude']
+        lat = session.get('lat', None)
+        long = session.get('long', None)
         beach_description = request.form['beach_description']
 
         # Create an instance of the Beach class called "new_beach". Populate it with the form values from above.

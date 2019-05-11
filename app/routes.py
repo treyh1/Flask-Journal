@@ -5,6 +5,7 @@ from flask_googlemaps import GoogleMaps
 from flask_googlemaps import Map
 from flask_sqlalchemy import SQLAlchemy, inspect
 from sqlalchemy import func
+from sqlalchemy.exc import SQLAlchemyError
 import os
 import psycopg2 as psy
 import urllib.parse
@@ -341,24 +342,31 @@ def add_beach():
    if request.method == 'POST':
       try:
    
+# Grab the form values and assign to variables to be used when adding the new beach.
+
         beach_name = request.form['beach_name']
         lat = request.form['latitude']
         long = request.form['longitude']
         beach_description = request.form['beach_description']
 
-        # Add the record to the db.
+        # Create an instance of the Beach class called "new_beach". Populate it with the form values from above.
 
         new_beach = Beach(beach_name, lat, long, beach_description)
+
+        # Add the record to the db.
+
         db.session.add(new_beach)
         db.session.commit()
+
+        msg = "Beach successfully added."
 
         # take the message and show it in the confirmation dialog.
 
         return render_template("result2.html",msg = msg)
 
-      except:
+      except SQLAlchemyError as e:
 
-        msg = "Failed to add the beach."
+        msg = str(e)
 
         # take the message and show it in the confirmation dialog.
 

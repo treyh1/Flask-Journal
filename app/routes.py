@@ -217,6 +217,7 @@ def get_beaches():
           zoom = 10,
           style = "height:450px;width:600px;margin:0;"
       )
+
     return render_template("atlas2.html", beach_map = beach_map, rows = rows)
 
 @app.route('/hide', methods=['POST'])
@@ -315,9 +316,22 @@ def render_beach_form():
    if not session.get('logged_in'):
       abort(401)
 
+   # Adds a map on the form that can be used for tagging latitude and longitude.
+
+   clickmap = Map(
+          identifier="clickmap",
+          lat=33.1103,
+          lng=-117.2326,
+          markers = markers,
+          zoom = 10,
+          style = "height:450px;width:600px;margin:0;"
+          report_clickpos=True,
+          clickpos_uri="/clickpost/"
+      )
+
    # Show the add_beach form
 
-   return render_template("add_beach_form.html")
+   return render_template("add_beach_form.html", clickmap = clickmap)
 
 @app.route('/add_beach',methods = ['POST'])
 def add_beach():

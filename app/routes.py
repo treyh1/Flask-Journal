@@ -325,8 +325,8 @@ def render_beach_form():
           lng=-117.2326,
           markers = markers,
           zoom = 10,
-          style = "height:450px;width:600px;margin:0;"
-          report_clickpos=True,
+          style = "height:450px;width:600px;margin:0;",
+          report_clickpos = True,
           clickpos_uri="/clickpost/"
       )
 

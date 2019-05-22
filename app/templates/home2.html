@@ -1,6 +1,15 @@
 {% extends "layout2.html" %}
+
+{% block head %}
+
+    {{ super() }}
+
+{% endblock %}
+
 {% block body %}
 	<body>
+
+		{{ super() }}
 		
 		<p>{{ count }} sessions since July 2008.</p>
 

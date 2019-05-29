@@ -319,16 +319,16 @@ def render_beach_form():
 
    # # Adds a map on the form that can be used for tagging latitude and longitude.
 
-   # clickmap = Map(
-   #        identifier="clickmap",
-   #        lat=33.1103,
-   #        lng=-117.2326,
-   #        markers = markers,
-   #        zoom = 10,
-   #        style = "height:450px;width:600px;margin:0;",
-   #        report_clickpos = True,
-   #        clickpos_uri="/clickpost/"
-   #    )
+   clickmap = Map(
+          identifier="clickmap",
+          lat=33.1103,
+          lng=-117.2326,
+          markers = markers,
+          zoom = 10,
+          style = "height:450px;width:600px;margin:0;",
+          report_clickpos = True,
+          clickpos_uri="/clickpost/"
+      )
 
    # # Show the add_beach form
 

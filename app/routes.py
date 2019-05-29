@@ -323,7 +323,6 @@ def render_beach_form():
           identifier="clickmap",
           lat=33.1103,
           lng=-117.2326,
-          markers = markers,
           zoom = 10,
           style = "height:450px;width:600px;margin:0;",
           report_clickpos = True,

@@ -326,7 +326,7 @@ def render_beach_form():
           zoom = 10,
           style = "height:450px;width:600px;margin:0;",
           report_clickpos = True,
-          clickpos_uri="/clickpost/"
+          clickpos_uri="/clickpost"
       )
 
    # # Show the add_beach form

@@ -334,7 +334,7 @@ def render_beach_form():
    return render_template("add_beach_form.html", clickmap = clickmap)
 
 @app.route('/clickpost',methods = ['POST'])
-def save_coordinates
+def save_coordinates():
    session['lat'] = request.form['lat']
    session['long'] = request.form['long']
    return redirect(url_for('add_beach'))

@@ -333,11 +333,11 @@ def render_beach_form():
 
    return render_template("add_beach_form.html", clickmap = clickmap)
 
-# @app.route('/clickpost',methods = ['POST'])
-# def save_coordinates
-#    session['lat'] = request.form['lat']
-#    session['long'] = request.form['long']
-#    return redirect(url_for('add_beach'))
+@app.route('/clickpost',methods = ['POST'])
+def save_coordinates
+   session['lat'] = request.form['lat']
+   session['long'] = request.form['long']
+   return redirect(url_for('add_beach'))
 
 @app.route('/add_beach',methods = ['POST'])
 def add_beach():

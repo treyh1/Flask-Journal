@@ -321,6 +321,7 @@ def render_beach_form():
 
    clickmap = Map(
           identifier="clickmap",
+          varname="clickmap",
           lat=33.1103,
           lng=-117.2326,
           zoom = 10,

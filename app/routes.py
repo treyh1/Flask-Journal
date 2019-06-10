@@ -317,28 +317,7 @@ def render_beach_form():
    if not session.get('logged_in'):
       abort(401)
 
-   # # Adds a map on the form that can be used for tagging latitude and longitude.
-
-   clickmap = Map(
-          identifier="clickmap",
-          varname="clickmap",
-          lat=33.1103,
-          lng=-117.2326,
-          zoom = 10,
-          style = "height:450px;width:600px;margin:0;",
-          report_clickpos = True,
-          clickpos_uri="/clickpost/"
-      )
-
-   # # Show the add_beach form
-
-   return render_template("add_beach_form.html", clickmap = clickmap)
-
-@app.route('/clickpost/',methods = ['POST'])
-def save_coordinates():
-   session['lat'] = request.form['lat']
-   session['long'] = request.form['long']
-   return "ok"
+   return render_template("add_beach_form.html")
 
 @app.route('/add_beach',methods = ['POST'])
 def add_beach():
@@ -351,8 +330,8 @@ def add_beach():
 # Grab the form values and assign to variables to be used when adding the new beach.
 
         beach_name = request.form['beach_name']
-        lat = session.get('lat', None)
-        long = session.get('long', None)
+        lat = request.form['lat']
+        long = request.form['long']
         beach_description = request.form['beach_description']
 
         # Create an instance of the Beach class called "new_beach". Populate it with the form values from above.

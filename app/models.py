@@ -1,4 +1,5 @@
 from app import db
+from flask_login import UserMixin
 
 class Board(db.Model):
 
@@ -66,7 +67,7 @@ class Beach(db.Model):
         self.long = long
         self.beach_description = beach_description
 
-class Users(db.Model):
+class Users(UserMixin,db.Model):
 
     __tablename__ = "users"
 

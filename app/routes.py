@@ -10,6 +10,7 @@ import os
 import psycopg2 as psy
 import urllib.parse
 import json
+from app.forms import LoginForm
 
 urllib.parse.uses_netloc.append("postgres")
 url = urllib.parse.urlparse(os.environ["DATABASE_URL"])

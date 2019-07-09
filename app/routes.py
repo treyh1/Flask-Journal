@@ -356,3 +356,9 @@ def add_beach():
         # take the message and show it in the confirmation dialog.
 
         return render_template("result2.html",msg = msg)
+
+@app.route('/signin')
+def signin():
+  form = LoginForm()
+  return render_template('signin.html', title= "Sign In", form=form)
+

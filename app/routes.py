@@ -11,6 +11,7 @@ import psycopg2 as psy
 import urllib.parse
 import json
 from app.forms import LoginForm
+from flask_login import current_user, login_user
 
 urllib.parse.uses_netloc.append("postgres")
 url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
@@ -25,7 +26,7 @@ conn = psy.connect(
 
 GoogleMaps(app, key="AIzaSyBqD70ZYt3164PpO6e89gQGzt9vGTOzbTw")
 
-from .models import Board, Entry, Beach
+from .models import Board, Entry, Beach, User
 
 # I use this function to unpack a list of tuples returned by the sql_alchemy query attribute, and convert each into a dictionary.
 
@@ -358,8 +359,17 @@ def add_beach():
 
         return render_template("result2.html",msg = msg)
 
-@app.route('/signin')
+@app.route('/signin', methods=['GET', 'POST'])
 def signin():
+  if current_user.is_authenticated:
+    return redirect(url_for('session_count'))
   form = LoginForm()
+  if form.validate_on_submit():
+    user = User.query.filter_by(username=form.username.data).first()
+    if user is None or not user.check_password(form.password.data):
+      flash('Invalid username or password')
+      return redirect(url_for('signin'))
+    login_user(user, remember=form.remember_me.data)
+    return redirect(url_for('session_count'))
   return render_template('signin.html', title= "Sign In", form=form)
 

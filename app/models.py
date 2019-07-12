@@ -71,7 +71,7 @@ class Beach(db.Model):
         self.long = long
         self.beach_description = beach_description
 
-class User(UserMixin,db.Model):
+class User(db.Model, UserMixin):
 
     __tablename__ = "users"
 

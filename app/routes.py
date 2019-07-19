@@ -332,8 +332,8 @@ def add_beach():
 # Grab the form values and assign to variables to be used when adding the new beach.
 
         beach_name = request.form['beach_name']
-        lat = request.form['lat']
-        long = request.form['long']
+        lat = request.form['latitude']
+        long = request.form['longitude']
         beach_description = request.form['beach_description']
 
         # Create an instance of the Beach class called "new_beach". Populate it with the form values from above.

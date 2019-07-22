@@ -2,15 +2,14 @@ from flask import Flask
 from .config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
-from flask_migrate import Migrate
+from app import models, routes
 
 app = Flask(__name__, template_folder="templates")
 app.config.from_object(Config)
 db = SQLAlchemy(app)
 login = LoginManager(app)
-migrate = Migrate(app, db)
 
-from app import models, routes
+login.login_view = 'login'
 
 if __name__ == '__main__':
    app.run(debug = True, use_reloader=True)

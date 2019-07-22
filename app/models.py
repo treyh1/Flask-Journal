@@ -1,5 +1,6 @@
 from app import db, login
 from flask_login import UserMixin
+from werkzeug.security import check_password_hash
 
 @login.user_loader
 def load_user(id):
@@ -74,6 +75,9 @@ class Beach(db.Model):
 class User(db.Model, UserMixin):
 
     __tablename__ = "users"
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), unique=True)

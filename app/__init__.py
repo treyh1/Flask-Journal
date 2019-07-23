@@ -9,7 +9,7 @@ app.config.from_object(Config)
 db = SQLAlchemy(app)
 login = LoginManager(app)
 
-# login.login_view = 'login'
+login.login_view = 'login'
 
 if __name__ == '__main__':
    app.run(debug = True, use_reloader=True)

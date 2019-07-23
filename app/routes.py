@@ -41,30 +41,30 @@ def get_values_as_tuple(dict_list, keys):
 
 # this is the code that shows the login page.
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    error = None
-    if request.method == 'POST':
-        if request.form['username'] != app.config['USERNAME']:
-            error = 'Invalid username'
-        elif request.form['password'] != app.config['PASSWORD']:
-            error = 'Invalid password'
-        else:
-            session['logged_in'] = True
-            flash('You were logged in')
-            return redirect(url_for('session_count'))
-    return render_template('login.html', error=error)
+# @app.route('/login', methods=['GET', 'POST'])
+# def login():
+#     error = None
+#     if request.method == 'POST':
+#         if request.form['username'] != app.config['USERNAME']:
+#             error = 'Invalid username'
+#         elif request.form['password'] != app.config['PASSWORD']:
+#             error = 'Invalid password'
+#         else:
+#             session['logged_in'] = True
+#             flash('You were logged in')
+#             return redirect(url_for('session_count'))
+#     return render_template('login.html', error=error)
 
-@app.route('/logout')
-def logout():
-    session.pop('logged_in', None)
-    flash('You were logged out')
-    return redirect(url_for('session_count'))
+# @app.route('/logout')
+# def logout():
+#     session.pop('logged_in', None)
+#     flash('You were logged out')
+#     return redirect(url_for('session_count'))
 
 @app.route('/')
 def session_count():
-   if not session.get('logged_in'):
-      abort(401)
+   # if not session.get('logged_in'):
+   #    abort(401)
 
    cur = conn.cursor()
    cur.execute("select * from entries")
@@ -75,8 +75,8 @@ def session_count():
 
 @app.route('/enternew')
 def new_entry():
-    if not session.get('logged_in'):
-       abort(401)
+    # if not session.get('logged_in'):
+    #    abort(401)
 
     def make_list(self):
        return list(self)
@@ -152,8 +152,8 @@ def add_entry():
 
 @app.route('/list')
 def list():
-   if not session.get('logged_in'):
-      abort(401)
+   # if not session.get('logged_in'):
+   #    abort(401)
 
    cur = conn.cursor()
    cur.execute("select * from entries where deleted != true ORDER BY time_out DESC")
@@ -163,8 +163,8 @@ def list():
 
 @app.route('/random')
 def random():
-   if not session.get('logged_in'):
-      abort(401)
+   # if not session.get('logged_in'):
+   #    abort(401)
       
    cur = conn.cursor()
    cur.execute("select * from entries where score = 3 and deleted != true ORDER BY RANDOM() LIMIT 1")
@@ -174,8 +174,8 @@ def random():
 
 @app.route('/atlas')
 def get_beaches():
-    if not session.get('logged_in'):
-      abort(401)
+    # if not session.get('logged_in'):
+    #   abort(401)
 
     cur = conn.cursor()
     cur.execute("SELECT beaches.*, (SELECT COUNT(*) FROM entries WHERE entries.beach_name = beaches.beach_name) AS TOTAL FROM beaches")
@@ -261,8 +261,8 @@ def hide_entry():
 
 @app.route('/boards')
 def list_boards():
-   if not session.get('logged_in'):
-      abort(401)
+   # if not session.get('logged_in'):
+   #    abort(401)
 
 # Query the DB to get the list of boards and also a count of entries per board.
 
@@ -316,8 +316,8 @@ def render_beach_form():
 
    # Check to make sure that the user is logged in. 
 
-   if not session.get('logged_in'):
-      abort(401)
+   # if not session.get('logged_in'):
+   #    abort(401)
 
    return render_template("add_beach_form.html")
 

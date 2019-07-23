@@ -11,7 +11,7 @@ import psycopg2 as psy
 import urllib.parse
 import json
 from app.forms import LoginForm
-from flask_login import current_user, login_user, login_required
+from flask_login import current_user, login_user
 
 urllib.parse.uses_netloc.append("postgres")
 url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
@@ -55,14 +55,13 @@ def login():
             return redirect(url_for('session_count'))
     return render_template('login.html', error=error)
 
-# @app.route('/logout')
-# def logout():
-#     session.pop('logged_in', None)
-#     flash('You were logged out')
-#     return redirect(url_for('session_count'))
+@app.route('/logout')
+def logout():
+    session.pop('logged_in', None)
+    flash('You were logged out')
+    return redirect(url_for('session_count'))
 
 @app.route('/')
-@login_required
 def session_count():
    if not session.get('logged_in'):
       abort(401)
@@ -75,7 +74,6 @@ def session_count():
 
 
 @app.route('/enternew')
-@login_required
 def new_entry():
     if not session.get('logged_in'):
        abort(401)
@@ -104,7 +102,6 @@ def new_entry():
     return render_template('journal_form3.html', beach_names = sorted_beaches)
 
 @app.route('/add_entry',methods = ['POST', 'GET'])
-@login_required
 def add_entry():
    if request.method == 'POST':
       try:
@@ -154,7 +151,6 @@ def add_entry():
          return render_template("result2.html",msg = msg)
 
 @app.route('/list')
-@login_required
 def list():
    if not session.get('logged_in'):
       abort(401)
@@ -166,7 +162,6 @@ def list():
    return render_template("list2.html",rows = rows)
 
 @app.route('/random')
-@login_required
 def random():
    if not session.get('logged_in'):
       abort(401)
@@ -178,7 +173,6 @@ def random():
    return render_template("random2.html",rows = rows)
 
 @app.route('/atlas')
-@login_required
 def get_beaches():
     if not session.get('logged_in'):
       abort(401)
@@ -230,7 +224,6 @@ def get_beaches():
     return render_template("atlas2.html", beach_map = beach_map, rows = rows)
 
 @app.route('/hide', methods=['POST'])
-@login_required
 def hide_entry():
 
    if request.method == 'POST':
@@ -267,7 +260,6 @@ def hide_entry():
          return render_template("result2.html",msg = msg)
 
 @app.route('/boards')
-@login_required
 def list_boards():
    if not session.get('logged_in'):
       abort(401)
@@ -320,7 +312,6 @@ def list_boards():
    return render_template("boards.html",rows = boards_for_template_list)
 
 @app.route('/beachform')
-@login_required
 def render_beach_form():
 
    # Check to make sure that the user is logged in. 
@@ -331,7 +322,6 @@ def render_beach_form():
    return render_template("add_beach_form.html")
 
 @app.route('/add_beach',methods = ['POST'])
-@login_required
 def add_beach():
 
 # pull the following data out of the form fields on add_beach_form.html
@@ -382,9 +372,4 @@ def signin():
     login_user(user, remember=form.remember_me.data)
     return redirect(url_for('session_count'))
   return render_template('signin.html', title= "Sign In", form=form)
-
-@app.route('/logout')
-def logout():
-  logout_user()
-  return redirect(url_for('signin'))
 

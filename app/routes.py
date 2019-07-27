@@ -39,22 +39,6 @@ def object_as_dict(obj):
 def get_values_as_tuple(dict_list, keys):
   return [tuple(d[k] for k in keys) for d in dict_list]
 
-# this is the code that shows the login page.
-
-# @app.route('/login', methods=['GET', 'POST'])
-# def login():
-#     error = None
-#     if request.method == 'POST':
-#         if request.form['username'] != app.config['USERNAME']:
-#             error = 'Invalid username'
-#         elif request.form['password'] != app.config['PASSWORD']:
-#             error = 'Invalid password'
-#         else:
-#             session['logged_in'] = True
-#             flash('You were logged in')
-#             return redirect(url_for('session_count'))
-#     return render_template('login.html', error=error)
-
 @app.route('/logout')
 def logout():
     logout_user()
@@ -64,8 +48,6 @@ def logout():
 @app.route('/')
 @login_required
 def session_count():
-   # if not session.get('logged_in'):
-   #    abort(401)
 
    cur = conn.cursor()
    cur.execute("select * from entries")
@@ -77,8 +59,6 @@ def session_count():
 @app.route('/enternew')
 @login_required
 def new_entry():
-    # if not session.get('logged_in'):
-    #    abort(401)
 
     def make_list(self):
        return list(self)
@@ -156,8 +136,6 @@ def add_entry():
 @app.route('/list')
 @login_required
 def list():
-   # if not session.get('logged_in'):
-   #    abort(401)
 
    cur = conn.cursor()
    cur.execute("select * from entries where deleted != true ORDER BY time_out DESC")
@@ -168,8 +146,6 @@ def list():
 @app.route('/random')
 @login_required
 def random():
-   # if not session.get('logged_in'):
-   #    abort(401)
       
    cur = conn.cursor()
    cur.execute("select * from entries where score = 3 and deleted != true ORDER BY RANDOM() LIMIT 1")
@@ -180,8 +156,6 @@ def random():
 @app.route('/atlas')
 @login_required
 def get_beaches():
-    # if not session.get('logged_in'):
-    #   abort(401)
 
     cur = conn.cursor()
     cur.execute("SELECT beaches.*, (SELECT COUNT(*) FROM entries WHERE entries.beach_name = beaches.beach_name) AS TOTAL FROM beaches")
@@ -269,8 +243,6 @@ def hide_entry():
 @app.route('/boards')
 @login_required
 def list_boards():
-   # if not session.get('logged_in'):
-   #    abort(401)
 
 # Query the DB to get the list of boards and also a count of entries per board.
 
@@ -322,11 +294,6 @@ def list_boards():
 @app.route('/beachform')
 @login_required
 def render_beach_form():
-
-   # Check to make sure that the user is logged in. 
-
-   # if not session.get('logged_in'):
-   #    abort(401)
 
    return render_template("add_beach_form.html")
 

@@ -11,7 +11,7 @@ import psycopg2 as psy
 import urllib.parse
 import json
 from app.forms import LoginForm
-from flask_login import current_user, login_user, login_required
+from flask_login import current_user, login_user, login_required, logout_user
 
 urllib.parse.uses_netloc.append("postgres")
 url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
@@ -55,11 +55,11 @@ def get_values_as_tuple(dict_list, keys):
 #             return redirect(url_for('session_count'))
 #     return render_template('login.html', error=error)
 
-# @app.route('/logout')
-# def logout():
-#     session.pop('logged_in', None)
-#     flash('You were logged out')
-#     return redirect(url_for('session_count'))
+@app.route('/logout')
+def logout():
+    logout_user()
+    flash('You were logged out')
+    return redirect(url_for('signin'))
 
 @app.route('/')
 @login_required

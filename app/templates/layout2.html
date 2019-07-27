@@ -69,11 +69,11 @@
         <a class=navlink href="{{ url_for('list') }}">list</a>
         <a class=navlink href="{{ url_for('get_beaches') }}">atlas</a>
         <a class=navlink href="{{ url_for('list_boards') }}">boards</a>
-      <!-- {% if not session.logged_in %}
-        <a class=navlink href="{{ url_for('signin') }}">log in</a>
-      {% else %}
-        <a class=navlink href="{{ url_for('logout') }}">log out</a> -->
-      <!-- {% endif %} -->
+      {% if current_user.is_anonymous %}
+        <a class=navlink href="{{ url_for('login') }}">Login</a>
+        {% else %}
+        <a class=navlink href="{{ url_for('logout') }}">Logout</a>
+        {% endif %}
       </div>
       {% for message in get_flashed_messages() %}
         <div class=flash>{{ message }}</div>

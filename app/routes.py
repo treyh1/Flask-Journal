@@ -11,7 +11,7 @@ import psycopg2 as psy
 import urllib.parse
 import json
 from app.forms import LoginForm
-from flask_login import current_user, login_user
+from flask_login import current_user, login_user, login_required
 
 urllib.parse.uses_netloc.append("postgres")
 url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
@@ -74,6 +74,7 @@ def session_count():
 
 
 @app.route('/enternew')
+@login_required
 def new_entry():
     # if not session.get('logged_in'):
     #    abort(401)

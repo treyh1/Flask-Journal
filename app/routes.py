@@ -28,6 +28,8 @@ GoogleMaps(app, key="AIzaSyBqD70ZYt3164PpO6e89gQGzt9vGTOzbTw")
 
 from .models import Board, Entry, Beach, User
 
+# blank line to upgrade to Heroku-20
+
 # I use this function to unpack a list of tuples returned by the sql_alchemy query attribute, and convert each into a dictionary.
 
 def object_as_dict(obj):
